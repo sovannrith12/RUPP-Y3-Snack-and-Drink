@@ -49,7 +49,7 @@
           <li><a href="#events">Events</a></li>
           <li><a href="#chefs">Chefs</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+    <!--    <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -64,7 +64,7 @@
               <li><a href="#">Dropdown 2</a></li>
               <li><a href="#">Dropdown 3</a></li>
               <li><a href="#">Dropdown 4</a></li>
-            </ul>
+            </ul>  -->
           </li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="#delivery">Delivery</a></li>
@@ -897,7 +897,7 @@
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
+                <img src="assets/img/chefs/chefs-1.jpg" width="400" height="400" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -906,7 +906,7 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Yukihira Soma</h4>
+                <h4>Gordon Ramsey</h4>
                 <span>Master Chef</span>
                 <p>"Wait for it, I'll make you clearly say "It's Good" with that mouth of yours, even if I have to exhaust my cooking to its limit..."</p>
               </div>
@@ -916,7 +916,7 @@
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/chefs/chefs-2.jpg" width="400" height="400" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -925,7 +925,7 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Pastry Mille Morteln</h4>
+                <h4>Jamie Oliver</h4>
                 <span>Patissier</span>
                 <p>I thought sweets were the only thinking I'd ever have to think about. But in this world. the only way to make my dream come true is to protect our fief. And I will make it come true!!</p>
               </div>
@@ -935,7 +935,7 @@
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
+                <img src="assets/img/chefs/chefs-3.jpg" width="400" height="400" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -944,9 +944,9 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>Mao Xiangling</h4>
+                <h4>Ren Nara</h4>
                 <span>Cook</span>
-                <p>My name is Xiangling, I'm a chef from Liyue! My favorite place is the chicken... I mean, the kitchen! Ugh, I practiced so hard, but I still get nervous when introducing myself... Heh</p>
+                <p>My name is Ren Nara, judge from Masterchef Cambodia</p>
               </div>
             </div>
           </div><!-- End Chef Team Member -->
@@ -1180,6 +1180,8 @@
               <div id="delivery-list"></div>
               <div id="total-price">Total: $0.00</div>
               <button onclick="placeOrder()">Place Order</button>
+              <input type="file" id="uploadButton" onchange="handleFileUpload()" style="margin-left: 10px;">
+              <div id="uploadedFileName" style="margin-top: 10px;"></div>
             </div>
             <a href="assets/img/bank-qr.jpg" class="glightbox"><img src="assets/img/bank-qr.jpg" align="center" width="150" height="150" class="" alt=""></a>
           </center>
@@ -1246,6 +1248,53 @@
     }
   </script>
   <!-- End Java Script on Delivery Section-->
+
+  <!-- JavaScript to Handle the File Upload -->
+  <script>
+    function placeOrder() {
+        // Existing logic for placing the order
+        const deliveryList = document.getElementById('delivery-list');
+        const totalPrice = document.getElementById('total-price');
+    
+        if (deliveryList.innerHTML.trim() === '') {
+            alert('No items in the order!');
+            return;
+        }
+    
+        alert('Order placed successfully!');
+        deliveryList.innerHTML = ''; // Clear the order list
+        totalPrice.textContent = 'Total: $0.00'; // Reset the total price
+    
+        // Reset the upload input and clear the displayed image or file name
+        const fileInput = document.getElementById('uploadButton');
+        const fileDisplay = document.getElementById('uploadedFileName');
+        fileInput.value = ''; // Clear the file input
+        fileDisplay.innerHTML = ''; // Clear the displayed image or file name
+    }
+    
+    function handleFileUpload() {
+        const fileInput = document.getElementById('uploadButton');
+        const fileDisplay = document.getElementById('uploadedFileName');
+        
+        const file = fileInput.files[0]; // Get the selected file
+        if (file) {
+            // If the file is an image, display it; otherwise, display the file name
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = '200px';
+                img.style.marginTop = '10px';
+                fileDisplay.innerHTML = ''; // Clear any existing content
+                fileDisplay.appendChild(img);
+            } else {
+                fileDisplay.textContent = `File: ${file.name}`;
+            }
+        } else {
+            fileDisplay.textContent = ''; // Clear the display if no file is selected
+        }
+    }
+    </script>
+    <!-- End JavaScript to Handle the File Upload -->
 
   </main>
 
